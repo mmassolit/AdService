@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ad
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ad
+  template:
+    metadata:
+      labels:
+        app: ad
+    spec:
+      containers:
+        - image: mmassolit/ad-service
+          name: ad
+          ports:
+            - containerPort: 8083
+              name: ad
+          env:
+            - name: POSTGRES_ENDPOINT
+              value: "jdbc:postgresql://127.0.0.1:5432/adservice"
+            - name: POSTGRES_PASSWORD
+              value: "123"
+            - name: POSTGRES_USERNAME
+              value: "video_sharing_test"
